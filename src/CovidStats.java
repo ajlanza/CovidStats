@@ -29,7 +29,7 @@ public class CovidStats {
         for(int n: dailyCaseCount){
           System.out.println(n);
         }
-        System.out.println(dailyCaseCount.length);
+        // System.out.println(dailyCaseCount.length);
 
         int sum = 0;
         for( int n : dailyCaseCount ){
@@ -38,7 +38,7 @@ public class CovidStats {
         double average = (double)sum / (double)dailyCaseCount.length;
         System.out.printf("Average new cases per day %.2f\n", average);
 
-        
+
         // How many days has it been since the number of cases doubled??
         int totalCount = covid19[covid19.length -1];
         int halfCount = totalCount / 2;
@@ -55,6 +55,16 @@ public class CovidStats {
         int numDaysSinceDouble = (covid19.length - 1) - halfCountIndex;
         System.out.printf("The number of days since the number of cases doubled is: %d\n", numDaysSinceDouble);
 
+        // Find the largest daily increase
+        int largest = Integer.MIN_VALUE;
+        int largestIndex = -1;
+        for(int j = 1; j < dailyCaseCount.length; j++){
+          if( dailyCaseCount[j] > largest){
+            largest = dailyCaseCount[j];
+            largestIndex = j;
+          }
+        }
+        System.out.printf("The largest daily increase of %d occured on day %d\n", largest, largestIndex);
         
     }
 }
