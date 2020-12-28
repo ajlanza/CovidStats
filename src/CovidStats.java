@@ -55,16 +55,36 @@ public class CovidStats {
         int numDaysSinceDouble = (covid19.length - 1) - halfCountIndex;
         System.out.printf("The number of days since the number of cases doubled is: %d\n", numDaysSinceDouble);
 
-        // Find the largest daily increase
+        // Find the largest and smallest daily increase
         int largest = Integer.MIN_VALUE;
+        int smallest = Integer.MAX_VALUE;
         int largestIndex = -1;
+        int smallestIndex = -1;
         for(int j = 1; j < dailyCaseCount.length; j++){
-          if( dailyCaseCount[j] > largest){
+          if( dailyCaseCount[j] > largest ){
             largest = dailyCaseCount[j];
             largestIndex = j;
           }
+          if( dailyCaseCount[j] < smallest && dailyCaseCount[j] > 0){
+            smallest = dailyCaseCount[j];
+            smallestIndex = j;
+          }
         }
-        System.out.printf("The largest daily increase of %d occured on day %d\n", largest, largestIndex);
-        
+        System.out.printf("The largest daily increase of %d occurred on day %d\n", largest, largestIndex);
+        System.out.printf("The smallest daily increase of %d occurred on day %d\n", smallest, smallestIndex);
+
+        // Find the weekly average increase
+        int weekNum = 1;
+        int sevenDaySum = 0;
+        for (int k = 0; k < dailyCaseCount.length; k++){
+          if(k % 7 == 0){
+            if(k != 0){
+              System.out.printf("Average daily increase for week %d is %.2f.\n", weekNum, ((double)sevenDaySum/7));
+              weekNum ++;
+            }
+            sevenDaySum = 0;
+          }
+          sevenDaySum  = sevenDaySum + dailyCaseCount[k];
+        }
     }
 }
